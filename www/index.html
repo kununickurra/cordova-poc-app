@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+<head>
+    <!--
+    Customize this policy to fit your own app's needs. For more guidance, see:
+        https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+    Some notes:
+        * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+        * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+        * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+            * Enable inline JS: add 'unsafe-inline' to default-src
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+    -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <!--
+    <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css"/>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+    -->
+
+    <!-- Include jQuery Mobile stylesheets -->
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+
+    <!-- nativeDroid core CSS -->
+    <link rel="stylesheet" href="css/nativedroid2.css"/>
+
+    <!-- nativeDroid: Color Schemes -->
+    <link rel="stylesheet" href="css/nativedroid2.color.green.css"/>
+
+
+    <style>
+        #test-map-container {
+            padding: 0;
+            position : absolute !important;
+            top : 40px !important;
+            right : 0;
+            bottom : 40px !important;
+            left : 0 !important;
+        }
+    </style>
+
+    <title>My first cordova App</title>
+</head>
+<body>
+
+<div data-role="page" data-theme='a' class="ui-page ui-page-theme-a ui-page-header-fixed" id="main-page">
+
+    <div data-role="header" data-position="fixed" class="wow fadeInDown" data-wow-delay="0.2s">
+        <a href="#navigation-panel" class="ui-btn ui-btn-right wow fadeIn" data-wow-delay='1.2s'><i class="zmdi zmdi-more-vert"></i></a>
+        <a href="#menu-panel" class="ui-btn ui-btn-left wow fadeIn" data-wow-delay='0.8s'><i class="zmdi zmdi-menu"></i></a>
+        <h1 class="wow fadeIn" data-wow-delay='0.4s'>Page Title</h1>
+    </div>
+
+    <div data-role="panel" id="navigation-panel" data-animate="false" data-position='bottom' data-display="overlay">
+        <div data-role="navbar" class="ui-navbar" role="navigation">
+            <ul>
+                <li><a href="#menu-panel" data-icon="home">Menu</a></li>
+
+                <li><div class="box"><p><i class="zmdi zmdi-navigation zmd-fw"></i> zmdi-navigation</div></li>
+
+                <li><a href="#map-test"><i class="zmdi zmdi-navigation"></i>Maps</a></li>
+                <li><a href="#pagetwo" data-icon="arrow-r">Go to second page</a></li>
+                <li><a href="#ble-test" data-icon="search">Blue Tooth LE</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!--
+
+
+
+
+    <div data-role="header" data-tap-toggle='false' data-position="fixed">
+        Main Page menu for POC App
+        Battery status : &nbsp; <span id="test-battery-status">N.A.</span>
+        <div data-role="navbar" class="ui-navbar" role="navigation">
+            <ul>
+                <li><a href="#menu-panel" data-icon="home">Menu</a></li>
+                <li><a href="#map-test" data-icon="location">Maps</a></li>
+                <li><a href="#pagetwo" data-icon="arrow-r">Go to second page</a></li>
+                <li><a href="#ble-test" data-icon="search">Blue Tooth LE</a></li>
+            </ul>
+        </div>
+
+    </div> -->
+
+    <div data-role="main" class="ui-content">
+        <p>Get to second page</p>
+        <a href="#pagetwo" class="ui-btn ui-btn-raised" data-transition="slide">Go to Page Two</a>
+        <a href="#dialog-page" class="ui-btn ui-icon-alert ui-btn-icon-left">Open dialog box</a>
+        <a href="#popup-window"
+           data-position-to="windo
+           data-transition="fade"
+           data-rel="popup"
+           class="ui-btn ui-icon-bullets ui-btn-icon-left">Open popup</a>
+    </div>
+
+    <div data-role="popup" class="ui-content" id="popup-window">
+        <p>Popup window !</p>
+    </div>
+
+    <div data-role="panel" id="menu-panel" data-display="overlay" data-position-fixed="true">
+        <div data-role="listview" data-inset="false" data-icon="false">
+            <a href="#pg-chart-test" class="ui-btn">Charts</a>
+            <a href="#db-test" class="ui-btn">DB Test</a>
+            <a href="#create-user" class="ui-btn">Create user</a>
+            <a href="#pg-list-users" class="ui-btn">List user</a>
+            <a href="#pg-list-contacts" class="ui-btn">List contacts</a>
+        </div>
+    </div>
+
+    <div data-role="footer">
+        <h1>Powered by NT Services SPRL</h1>
+    </div>
+
+    <div data-role="panel" id="test-panel">
+        <h2>Panel Header..</h2>
+        <p>Some text in the panel..</p>
+    </div>
+
+</div>
+
+<div data-role="page" id="db-test">
+    <div data-role="header" data-position="fixed" class="wow fadeInDown" data-wow-delay="0.2s">
+        <h1>Test database</h1>
+    </div>
+
+    <div data-role="main" class="ui-content">
+        <div class="ui-listview" >
+            <li><a id="insert-user" class="ui-btn">Insert user</a></li>
+            <li><a id="retrieve-user" class="ui-btn">Get user</a></li>
+        </div>
+    </div>
+
+    <div data-role="footer">
+        <h1>Powered by NT Services SPRL</h1>
+    </div>
+</div>
+
+<div data-role="page" id="create-user">
+    <div data-role="header" data-position="fixed" class="wow fadeInDown" data-wow-delay="0.2s">
+        <h1>Create a new User</h1>
+    </div>
+
+    <div data-role="main" class="ui-content">
+        <form id="create-user-form">
+            <label for="userId">User ID</label>
+            <input type="text" name="userId" id="userId" value="" data-clear-btn="true" placeholder="Unique user identifier...">
+
+            <label for="lastName">Last Name</label>
+            <input type="text" name="lastName" id="lastName" value="" data-clear-btn="true" placeholder="Last Name...">
+
+            <label for="firstName">First Name</label>
+            <input type="text" name="firstName" id="firstName" value="" data-clear-btn="true" placeholder="First Name...">
+
+            <label for="birthDate">Birth date</label>
+            <input type="date" name="birthDate" id="birthDate" value="" data-clear-btn="true" placeholder="Birth date...">
+
+            <label for="email">E-mail address</label>
+            <input type="email" name="email" id="email" value="" data-clear-btn="true" placeholder="Email address...">
+
+            <label for="restingHeartRate">Resting heart rate</label>
+            <input type="range" name="restingHeartRate" id="restingHeartRate" value="0" min="0" max="100" data-highlight="true">
+
+            <label for="maxHeartRate">Peak heart rate</label>
+            <input type="range" name="maxHeartRate" id="maxHeartRate" value="0" min="0" max="220" data-highlight="true">
+            <p>
+                <a class="ui-btn" id="btn-create-user">Create User</a>
+            </p>
+
+        </form>
+    </div>
+
+    <div data-role="footer">
+        <h1>Powered by NT Services SPRL</h1>
+    </div>
+</div>
+
+
+<div data-role="page" id="pg-list-users">
+    <div data-role="header" data-position="fixed" class="wow fadeInDown" data-wow-delay="0.2s">
+        <h1>All users</h1>
+    </div>
+
+    <div data-role="main" class="ui-content">
+        <ul data-role="listview" id="user-list" data-icon="false" data-autodividers="true">
+
+        </ul>
+    </div>
+
+    <div data-role="footer">
+        <h1>Powered by NT Services SPRL</h1>
+    </div>
+</div>
+
+<div data-role="page" id="pg-list-contacts">
+    <div data-role="header" data-position="fixed" class="wow fadeInDown" data-wow-delay="0.2s">
+        <h1>All contacts</h1>
+    </div>
+
+    <div data-role="main" class="ui-content">
+        <form class="ui-filterable">
+            <input id="filter-contact" data-type="search">
+        </form>
+
+        <ul data-role="listview" id="contact-list"  data-filter="true" data-input="#filter-contact" data-icon="false" data-autodividers="true">
+
+        </ul>
+    </div>
+
+    <div data-role="footer">
+        <h1>Powered by NT Services SPRL</h1>
+    </div>
+</div>
+
+
+<div data-role="page" id="pagetwo" data-theme='b'>
+    <div data-role="header">
+        <h1>Page 2 Title</h1>
+    </div>
+
+    <div data-role="main" class="ui-content">
+        <p>This is Page Two. If you click on the link below, it will take you back to the main page</p>
+        <a href="#main-page" data-transition="slide">Go back to main page</a>
+    </div>
+
+    <div data-role="footer">
+        <h1>Powered by NT Services SPRL</h1>
+    </div>
+</div>
+
+<div data-role="page" id="ble-test">
+    <div data-role="header">
+        <h1>Bluetooth LE Test Page</h1>
+        <a href="#main-page" data-role="button" data-icon="home" data-iconpos="notext">Back to home page</a>
+
+    </div>
+
+    <div data-role="main" class="ui-content">
+        <div data-role="content">
+            <a id="btn-scan-ble" href="#" data-transition="slide">Start scan for devices</a>
+            <h2>Available devices</h2>
+            <ul id="ble-device-list" data-role="listview">
+            </ul>
+            <h2>HR Data</h2>
+            <p>Current HR data : <span id="test-heart-rate-data"></span></p>
+            <p>Current training session Id <span id="lbl-current-training-session"></span></p>
+        </div>
+        <div data-role="content">
+            <ul data-role="listview">
+                <li><a class="ui-btn" id="btn-start-training-session">Start Session</a></li>
+                <li><a class="ui-btn" id="btn-stop-training-session">Stop Session</a></li>
+                <li><a class="ui-btn" id="test-record-data">Test Record Data</a></li>
+                <li><a class="ui-btn" id="view-data-training-session">View data from last session</a></li>
+            </ul>
+        </div>
+        </div>
+    </div>
+
+
+    <div data-role="footer">
+        <h1>Powered by NT Services SPRL</h1>
+    </div>
+</div>
+
+<div data-role="page" id="map-test">
+    <div data-role="header">
+        <a data-role="button" data-icon="location" id="btn-show-location" data-iconpos="notext">Find stores near you</a>
+        <h1>Test google MAP integration</h1>
+        <a href="#main-page" data-role="button" data-icon="home" data-iconpos="notext">Back to home page</a>
+    </div>
+
+    <div data-role="content" id="test-map-container">
+            Map is currently being initialized...
+    </div>
+
+    <div data-role="footer" data-position="fixed">
+        <h1>Powered by NT Services SPRL</h1>
+    </div>
+</div>
+
+<div data-role="page" id="pg-chart-test">
+    <div data-role="header">
+        <h1>Test google MAP integration</h1>
+        <a href="#main-page" data-role="button" data-icon="home" data-iconpos="notext">Back to home page</a>
+    </div>
+
+    <div data-role="content">
+        <canvas id="test-chart" width="80vw" height="40vw"></canvas>
+    </div>
+
+    <div data-role="footer" data-position="fixed">
+        <h1>Powered by NT Services SPRL</h1>
+    </div>
+</div>
+
+
+<div data-role="page" data-dialog="true" id="dialog-page">
+    <div data-role="header">
+        <h1>I'm A Dialog Box!</h1>
+    </div>
+
+    <div data-role="main" class="ui-content">
+        <p>This is a Jquery UI Dialog box</p>
+        <a href="#main-page">Go to Main page</a>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="lib/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="lib/moment.js"></script>
+<script type="text/javascript" src="lib/Chart.js"></script>
+
+<!-- Include the jQuery library -->
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!-- Include the jQuery Mobile library -->
+<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLWf2mw5gIizjqwsOK35YoK7CRZtA1e80&libraries=places"></script>
+
+
+<script type="text/javascript" src="nd2settings.js"></script>
+<script type="text/javascript" src="js/nativedroid2.js"></script>
+
+<script type="text/javascript" src="js/database.js"></script>
+<script type="text/javascript" src="js/preference-dao.js"></script>
+<script type="text/javascript" src="js/preference-service.js"></script>
+<script type="text/javascript" src="js/training-session-service.js"></script>
+
+<script type="text/javascript" src="js/maps.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/camera.js"></script>
+
+<!--<div class="jumbotron" style="display:none">-->
+    <!--<h1>Apache Cordova Test</h1>-->
+    <!--<div class="form-group">-->
+        <!--<button class="btn btn-info" id="test-alert">Fire a Native Alert</button>-->
+        <!--<br>-->
+        <!--<button class="btn btn-info" id="test-select-image">Select an image from the Library</button>-->
+        <!--<br>-->
+        <!--<button class="btn btn-info" id="test-geolocation">Get current position</button>-->
+    <!--</div>-->
+<!--</div>-->
+<!--<div class="jumbotron">-->
+    <!--<img id="selected-picture-object" alt="No selected picture"></img>-->
+<!--</div>-->
+
+
+</body>
+</html>
